@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { HousingLocationComponent } from '../housing-location/housing-location.component';
 import { IHousinglocation } from '../housinglocation';
-import { homeData } from '../housingData';
+import { HousingService } from '../services/housing.service';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -9,8 +9,13 @@ import { homeData } from '../housingData';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
-  housingLocationList: IHousinglocation[] = homeData;
+  housingLocationList: IHousinglocation[] = [];
+  private _housingService = inject(HousingService)
+
+  ngOnInit(): void {
+    this.housingLocationList = this._housingService.getAllHousingLocations();
+  }
 
 }

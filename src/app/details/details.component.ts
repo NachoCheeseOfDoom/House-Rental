@@ -16,12 +16,13 @@ export class DetailsComponent implements OnInit {
   private _homeService = inject(HousingService);
   private _route = inject(ActivatedRoute);
 
+  housingLocation?: IHousinglocation;
+
   detailsFrom = new FormGroup({
     firstName: new FormControl(''),
     lastName: new FormControl(''),
     email: new FormControl(''),
   });
-  housingLocation?: IHousinglocation;
 
   ngOnInit(): void {
     const housingLocationId = Number(this._route.snapshot.params['id'])
@@ -33,7 +34,14 @@ export class DetailsComponent implements OnInit {
       this.detailsFrom.value.firstName ?? '',
       this.detailsFrom.value.lastName ?? '',
       this.detailsFrom.value.email ?? '',
-    );
+    ); 
   }
 
+  //! This is if you want to retrieve the api from a server or a url:
+  // ngOnInit(): void {
+  //   const housingLocationId = Number(this._route.snapshot.params['id'])
+  //   this._homeService.getHousingLocationById(housingLocationId).then((houseDetails) => {
+  //     this.housingLocation = houseDetails;
+  //   })
+  // }
 }
